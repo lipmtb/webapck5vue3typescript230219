@@ -1,0 +1,51 @@
+{
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/**/*.d.ts",
+    "shims-vue.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "compilerOptions": {
+    "target": "esnext", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "module": "esnext", /* Specify what module code is generated. */
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ],
+    "jsx": "preserve", /* Specify what JSX code is generated. */
+    // "rootDir": "./", /* Specify the root folder within your source files. */
+    "importHelpers": true,
+    "useDefineForClassFields": true,
+    "moduleResolution": "node", /* Specify how TypeScript looks up a file from a given module specifier. */
+    "baseUrl": ".", /* Specify the base directory to resolve non-relative module names. */
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@": [
+        "./src"
+      ]
+    },
+    "resolveJsonModule": true,
+    "inlineSourceMap": true,
+    "allowSyntheticDefaultImports": true, /* Allow 'import x from y' when a module doesn't have a default export. */
+    "esModuleInterop": true, /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
+    "strict": true, /* Enable all strict type-checking options. */
+    "skipLibCheck": true,
+    /* import require alias 结合yarn add @types/node*/
+    "types": [
+      "webpack-env",
+      "node"
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
+  }
+}
