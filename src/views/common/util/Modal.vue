@@ -1,7 +1,6 @@
 
 
 <template>
-    <teleport to="body">
         <div class="modal-view-popup">
             <div class="pop-up-content">
                 <div class="modal-header" @click="closeModal">x</div>
@@ -13,8 +12,6 @@
 
             </div>
         </div>
-    </teleport>
-
 </template>
   
 <script lang="ts">
@@ -44,7 +41,7 @@ export default defineComponent({
     bottom: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.315);
-
+    z-index:999;
     .pop-up-content {
         position: absolute;
         left: 0;

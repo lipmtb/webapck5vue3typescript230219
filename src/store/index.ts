@@ -1,13 +1,12 @@
 import Vuex, { ActionContext } from "vuex";
 
-
-export type TUserArea = {
-    userInfo: {
-        userName: string
-    }
-}
 export type TUserInfoPayload = {
     userName: string;
+    userId?: string;
+}
+
+export type TUserArea = {
+    userInfo: TUserInfoPayload;
 }
 
 const userArea = {
@@ -18,7 +17,8 @@ const userArea = {
     mutations: {
         saveUser: (state: TUserArea, payload: TUserInfoPayload) => {
             state.userInfo = {
-                userName: payload.userName
+                userName: payload.userName,
+                userId: payload.userId
             }
         }
     },
@@ -32,6 +32,9 @@ const userArea = {
     getters: {
         getUserName: (state: TUserArea) => {
             return state?.userInfo?.userName;
+        },
+        getUserId: (state: TUserArea) => {
+            return state?.userInfo?.userId;
         }
     }
 }
