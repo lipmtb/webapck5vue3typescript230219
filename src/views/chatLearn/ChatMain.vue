@@ -3,48 +3,76 @@
         <h2 v-if="userName">你好！{{ userName }}</h2>
         <div class="default-page">
             <div class="chat-scroll-list">
-                <ChatDetail v-for="chatItem in chatList" :chat-item="chatItem"/>
+                <ChatDetail v-for="chatItem in chatList" :chat-item="chatItem" :user-id="userId" />
             </div>
             <div class="chat-send-footer">
-                <textarea v-model="userInText" class="input-area" placeholder="请输入" cols="2" maxlength="9999" />
+                <textarea v-model="userInText" class="input-area" placeholder="请输入" cols="2" />
             </div>
-            <button class="chat-submit-btn" :class="btnDisabled ? 'disalbed-btn' : ''" @click="onSubmitChat"
+            <button class="chat-submit-btn" :class="btnDisabled ? 'disalbed-btn' : ''" @click="handleSubmit"
                 v-bind:disabled="btnDisabled">发送</button>
         </div>
+        <Modal v-if="apiKeyVisible" :on-close="closeApiModal">
+            <template v-slot:modal-content>
+                <div class="confirm-name">
+                    <input type="text" placeholder="请输入apiKey" v-model="apiKey" />
+                </div>
+            </template>
 
+            <template v-slot:modal-bottom>
+                <button @click="onApiConfirm">确定</button>
+                <button @click="onApiReset">重置</button>
+            </template>
+        </Modal>
     </div>
 </template>
   
 <script lang="ts">
-import { defineComponent, ref, computed, toRef, onMounted } from "vue";
+import { defineComponent, ref, computed, toRef, onMounted, Ref } from "vue";
+import { useStore } from "vuex";
+import Modal from "../common/util/Modal.vue";
 import ChatDetail from "./component/ChatDetail.vue";
+import useApiKeyHook from "./hook/useApiKeyHook";
 import useChatHook from "./hook/useChatHook";
 export default defineComponent({
-    data() {
-        return () => {
-            socket: null;
-        };
-    },
     name: "ChatMain",
     props: {
         userName: String
     },
     setup(this, props) {
+        const store = useStore();
+        const { userId, loading, chatList, onSubmitChat } = useChatHook();
+        const { openApiModal, closeApiModal, apiKeyVisible, apiKey, onApiConfirm, onApiReset } = useApiKeyHook();
+        const apiKeyStore = computed(() => {
+            return store.getters["apiKeyArea/getApiKey"];
+        })
         const userInText = ref();
-        const { loading, chatList, onSubmitChat } = useChatHook();
+        const handleSubmit = async () => {
+            // if (!apiKeyStore?.value) {
+            //     openApiModal();
+            //     return;
+            // }
+            await onSubmitChat(userInText?.value, apiKeyStore?.value);
+            userInText.value = "";
+        }
         const btnDisabled = computed(() => {
-            return !userInText?.value || loading;
+            return !userInText?.value || loading || !userId?.value;
         });
-        const userName = toRef(props, "userName");
+        const userName: Ref<string | undefined> = toRef(props, "userName");
         return {
             userName,
             userInText,
-            onSubmitChat,
+            handleSubmit,
             btnDisabled,
-            chatList
+            chatList,
+            userId,
+            apiKey,
+            apiKeyVisible,
+            onApiConfirm,
+            closeApiModal,
+            onApiReset
         };
     },
-    components: { ChatDetail }
+    components: { ChatDetail, Modal }
 })
 
 </script>

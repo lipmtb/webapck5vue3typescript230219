@@ -1,9 +1,9 @@
 import axios from 'axios'
-export const ServerBaseUrl = "http://localhost:82";
+export const ServerBaseUrl = "http://207.246.78.164:82";
 
 const serviceBaseAxios = axios.create({
     baseURL: ServerBaseUrl,
-    timeout: 5000,
+    timeout: 20000,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',

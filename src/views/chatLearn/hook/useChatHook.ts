@@ -2,8 +2,11 @@ import { onMounted, ref, computed, reactive } from "vue";
 import { useStore } from "vuex";
 import io from "socket.io-client";
 import { ServerBaseUrl } from "@/service/serviceBase/serviceBase";
+import chatai from "@/service/chatai";
+
 export type TChatContent = {
     userId: string;
+    userName: string;
     time: string;
     content: string;
 }
@@ -18,35 +21,41 @@ const useChatHook = () => {
     const userId = computed(() => {
         return store.getters["userArea/getUserId"];
     })
-    // 后台返回响应
-    const handleNewMsg = () => {
-
-    }
+    const userName = computed(() => {
+        return store.getters["userArea/getUserName"];
+    })
     // 发送聊天
-    const onSubmitChat = async (reqText: string) => {
+    const onSubmitChat = async (reqText: string, apiKey: string) => {
         state.loading = true;
         state.chatList.push({
             userId: userId?.value,
-            time: new Date().toLocaleDateString(),
+            userName: userName?.value,
+            time: new Date().toLocaleTimeString(),
             content: reqText
         })
         try {
             // 发送给后台服务处理
+            const aiResponse = await chatai({ userId: userId?.value, content: reqText, apiKey });
+            const message = aiResponse?.choices?.[0]?.message?.content;
+            // const message=require("@/mock/aiRes.json");// mock
+            state.chatList.push({
+                userId: "assistant",
+                userName: "bot",
+                time: new Date().toLocaleTimeString(),
+                content: message ?? ""
+            })
         } catch (err) {
             console.error("发送失败", err);
         } finally {
             state.loading = false;
         }
     };
-    socketRef.value = io(ServerBaseUrl);
-    if (userId) {
-        socketRef.value?.on?.(userId?.value, handleNewMsg); //监听自己发送的消息是否成功
-    }
 
     return {
         ...(state || {}),
         socketRef,
-        onSubmitChat
+        onSubmitChat,
+        userId
     }
 }
 export default useChatHook;

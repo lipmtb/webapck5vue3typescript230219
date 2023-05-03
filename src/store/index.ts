@@ -9,6 +9,9 @@ export type TUserArea = {
     userInfo: TUserInfoPayload;
 }
 
+export type TApiKey = {
+    key: string;
+}
 const userArea = {
     namespaced: true,
     state: {
@@ -39,9 +42,34 @@ const userArea = {
     }
 }
 
+
+const apiKeyArea = {
+    namespaced: true,
+    state: {
+        key: null
+    },
+    mutations: {
+        saveApiKey: (state: TApiKey, payload: TApiKey) => {
+            state.key = payload.key;
+        }
+    },
+    actions: {
+        saveApiKeyAction: (context: ActionContext<TApiKey, any>, payload: TApiKey) => {
+            if (payload?.key) {
+                context.commit("saveApiKey", payload);
+            }
+        }
+    },
+    getters: {
+        getApiKey: (state: TApiKey) => {
+            return state?.key;
+        }
+    }
+}
 const store = new Vuex.Store({
     modules: {
-        userArea
+        userArea,
+        apiKeyArea
     }
 })
 
