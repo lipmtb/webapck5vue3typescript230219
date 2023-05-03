@@ -47,10 +47,10 @@ export default defineComponent({
         })
         const userInText = ref();
         const handleSubmit = async () => {
-            // if (!apiKeyStore?.value) {
-            //     openApiModal();
-            //     return;
-            // }
+            if (!apiKeyStore?.value) {
+                openApiModal();
+                return;
+            }
             await onSubmitChat(userInText?.value, apiKeyStore?.value);
             userInText.value = "";
         }
