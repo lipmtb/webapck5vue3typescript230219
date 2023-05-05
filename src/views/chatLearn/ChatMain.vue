@@ -136,7 +136,7 @@ p.page-welcome {
 .chat-scroll-list {
     scroll-behavior: smooth;
     overflow-y: scroll;
-    font-family: "Microsoft Yahei,Arial", "KaiTi", "宋体", Helvetica, sans-serif;
+    font-family: "Microsoft Yahei,Arial", "KaiTi", "宋体", sans-serif, Helvetica;
     margin-bottom: 8px;
     box-shadow: 1px 3px 10px 3px #ccc;
     padding: 4px 0 20px 0;
