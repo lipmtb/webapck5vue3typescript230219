@@ -1,7 +1,7 @@
 <template>
     <div class="login-header">
         <div class="login-btn" v-if="!userName">
-            <button @click="openlogin" class="login-regist-btn">登录/注册</button>
+            <button @click="openlogin" class="login-regist-btn">登录</button>
         </div>
     </div>
 </template>

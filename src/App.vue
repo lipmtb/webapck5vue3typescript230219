@@ -20,11 +20,9 @@ export default defineComponent({
         onMounted(async () => {
             try {
                 await testLogin();
-                console.log("登录成功");
                 const userInfoString = localStorage.getItem("userInfo");
                 if (userInfoString) {
                     const userInfoObj = JSON.parse(userInfoString);
-                    console.log("userInfoObjuserInfoObj", userInfoObj);
                     store.dispatch("userArea/saveUserAction", {
                         userName: userInfoObj?.userName,
                         userId: userInfoObj?.userId

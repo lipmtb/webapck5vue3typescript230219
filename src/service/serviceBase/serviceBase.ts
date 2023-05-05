@@ -12,7 +12,6 @@ const serviceBaseAxios = axios.create({
 
 serviceBaseAxios.interceptors.request.use(config => {
     const userInfoStr = localStorage.getItem("userInfo");
-    console.log("请求拦截加入凭证中", userInfoStr);
     // 请求头带上token
     if (userInfoStr) {
         const userInfo = JSON.parse(userInfoStr);
@@ -30,7 +29,6 @@ serviceBaseAxios.interceptors.response.use(response => {
         //退出登录,清除登录信息
         localStorage.removeItem("userInfo");
         //重新登录router.history.push('/login?redirectUrl=currentRoute.path')
-        console.log("登录失效，请重新登录", error, error.response.status);
     }
     return Promise.reject(error?.response);
 })

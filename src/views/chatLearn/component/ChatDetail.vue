@@ -1,5 +1,5 @@
 <template>
-    <div class="chat-detail-item">
+    <div class="chat-detail-item" :class="{ 'assistant': chatItemData.userId === 'assistant' }">
         <div v-if="userIdRef === chatItemData.userId" class="chat-owner">
             <span class="send-time">{{ chatItemData.time }}</span>
             <span class="from-user">{{ chatItemData.userName }}</span>
@@ -93,7 +93,8 @@ export default defineComponent({
 
 .content-other,
 .content-owner {
-    padding:2px 6px;
+    padding: 2px 6px;
+
     .content-desc {
         word-break: break-all;
         word-wrap: break-word;

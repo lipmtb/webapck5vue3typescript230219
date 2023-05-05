@@ -35,7 +35,7 @@ export default defineComponent({
     bottom: 0;
     margin: auto;
     z-index: 99;
-    padding: 16px 16px 8px;
+    padding: 16px 12px 8px;
     background-color: #fff;
 }
 </style>

@@ -37,7 +37,7 @@ const useChatHook = () => {
             // 发送给后台服务处理
             const aiResponse = await chatai({ userId: userId?.value, content: reqText, apiKey });
             const message = aiResponse?.choices?.[0]?.message?.content;
-            // const message=require("@/mock/aiRes.json");// mock
+            // const message = require("@/mock/aiRes.json");// mock
             state.chatList.push({
                 userId: "assistant",
                 userName: "bot",

@@ -10,14 +10,16 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const config = require("./config");
 console.log('process.env.NODE_ENV webpack dev start...', process.env.NODE_ENV);
 
+const isDev = process.env.NODE_ENV === "development";
+
 module.exports = {
     entry: {
-        index: [
+        index: isDev ? [
             // hmr
             'webpack-dev-server/client?http://localhost:8089/',
             'webpack/hot/dev-server',
             path.join(__dirname, './src/index.ts')
-        ],
+        ] : [path.join(__dirname, './src/index.ts')],
         // other: path.join(__dirname, './src/index.ts')
     },
     // entry: "/src/index.ts",
@@ -118,7 +120,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "./public/index.html"),
-            title: "vue3test0221006",
+            title: "chatLearn",
             inject: true
         }),
         new MiniCssExtraPlugin({
@@ -135,8 +137,8 @@ module.exports = {
             "@": path.resolve(__dirname, "./src")
         }
     },
-    // devtool: process.env.NODE_ENV === "development" ? "cheap-module-eval-source-map" : "cheap-module-source-map",
-    devtool: 'cheap-module-source-map',
+    devtool: isDev ? "cheap-module-source-map" : "source-map",
+    // devtool: 'cheap-module-source-map',
     devServer: {
         host: config.dev.host,
         contentBase: './jjccdist',
