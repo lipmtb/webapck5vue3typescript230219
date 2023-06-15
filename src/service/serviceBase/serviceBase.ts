@@ -3,7 +3,7 @@ export const ServerBaseUrl = "http://207.246.78.164:82";
 
 const serviceBaseAxios = axios.create({
     baseURL: ServerBaseUrl,
-    timeout: 20000,
+    timeout: 40000,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
