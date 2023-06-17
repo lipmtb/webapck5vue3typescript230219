@@ -11,7 +11,7 @@
         <div v-if="userIdRef === chatItemData.userId" class="content-owner">
             <span class="content-desc">{{ chatItemData.content }}</span>
         </div>
-        <div v-else class="content-other">
+        <div v-else class="content-other" @click="copyTextToSnipase">
             <ul class="botContentList">
                 <li v-for="chatItem in botContentArray">
                     <span>{{ chatItem.splitContent }}</span>
@@ -22,6 +22,7 @@
 </template>
   
 <script lang="ts">
+import { copyText } from "@/util/copyText";
 import { defineComponent, toRef, computed, reactive, ComputedRef } from "vue";
 export default defineComponent({
 
@@ -44,11 +45,37 @@ export default defineComponent({
                 return [];
             }
         })
+        const findulParent = (elem: HTMLElement) => {
+            if (elem?.nodeName === "ul") {
+                return elem;
+            }
+            let resultElement = elem;
+            while (resultElement?.parentElement) {
+                resultElement = resultElement?.parentElement;
+                console.log("resultElement?.nodeName ", resultElement?.nodeName);
+                if (resultElement?.nodeName === "UL") {
+                    break;
+                }
+            }
+            return resultElement;
+        }
+        const copyTextToSnipase = (event: MouseEvent) => {
+            console.log("event", event);
+            const elem = event?.target as HTMLElement;
+            if (!elem) {
+                return;
+            }
+            const ulElem = findulParent(elem);
+            const text=ulElem.innerText;
+            copyText(text);
+            alert("复制成功");
+        }
 
         return {
             chatItemData,
             userIdRef,
-            botContentArray
+            botContentArray,
+            copyTextToSnipase
         }
     },
 })
@@ -108,7 +135,9 @@ export default defineComponent({
 
 .content-other {
     float: left;
-
+    &:hover{
+        background-color: lightblue;
+    }
     .botContentList {
         padding-left: 6px;
         margin: 0;

@@ -10,6 +10,12 @@
                 <textarea v-model="userInText" class="input-area" placeholder="请输入您的问题" cols="2" @submit="handleSubmit" />
                 <button class="chat-submit-btn" :class="btnDisabled ? 'disalbed-btn' : ''" @click="handleSubmit"
                     v-bind:disabled="btnDisabled">发送</button>
+                <button class="chat-voice-btn" @touchstart.prevent="startVoice" @touchend.prevent="endVoice">语音输入</button>
+                <ul class="voiceList" v-for="voiceItem, index in voiceList">
+                    <li>
+                        <span v-text="index"></span> <audio :src="voiceItem.voiceUrl" controls />
+                    </li>
+                </ul>
             </div>
         </div>
         <Modal v-if="apiKeyVisible" :on-close="closeApiModal">
@@ -35,6 +41,7 @@ import ChatDetail from "./component/ChatDetail.vue";
 import useApiKeyHook from "./hook/useApiKeyHook";
 import useChatHook from "./hook/useChatHook";
 import useScrollHeight from "./hook/useScrollHeight";
+import useVoiceHook from "./hook/useVoiceHook";
 export default defineComponent({
     name: "ChatMain",
     props: {
@@ -79,6 +86,7 @@ export default defineComponent({
         });
         const userName: Ref<string | undefined> = toRef(props, "userName");
 
+
         watchEffect(() => {
             const hasBotResponse = chatList.find(chatItem => chatItem?.userId === "assistant");
             nextTick(() => {
@@ -98,8 +106,10 @@ export default defineComponent({
                 })
             })
 
-
         })
+        // 录音
+        const { startVoice, endVoice, voiceList } = useVoiceHook();
+
         return {
             userName,
             userInText,
@@ -116,7 +126,10 @@ export default defineComponent({
             defaultPageRef,
             calcScrollHeight,
             scrollLine,
-            firstEle
+            firstEle,
+            startVoice,
+            endVoice,
+            voiceList
         };
     },
     components: { ChatDetail, Modal }
@@ -172,6 +185,24 @@ p.page-welcome {
 
         &.disalbed-btn {
             background-color: skyblue;
+        }
+    }
+
+    .chat-voice-btn {
+        height: 48px;
+        border: 0;
+        background-color: rgb(53, 53, 53);
+        color: #fff;
+        border-radius: 0 4px 4px 0;
+    }
+
+    .voiceList {
+        list-style: none;
+        padding-left: 0;
+
+        li {
+            display: flex;
+            align-items: center;
         }
     }
 }
