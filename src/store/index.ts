@@ -12,6 +12,12 @@ export type TUserArea = {
 export type TApiKey = {
     key: string;
 }
+
+export type TPromptText = {
+    text: string;
+    turnLen: number;
+}
+
 const userArea = {
     namespaced: true,
     state: {
@@ -66,10 +72,47 @@ const apiKeyArea = {
         }
     }
 }
+
+const longTextArea = {
+    namespaced: true,
+    state: {
+        text: "",
+        turnLen: 0
+    },
+    mutations: {
+        setNewPrompt: (state: TPromptText, payload: TPromptText) => {
+            state.text = payload.text;
+            state.turnLen = payload.text.length;
+        },
+        clearPrompt: (state: TPromptText) => {
+            state.text = "";
+            state.turnLen = 0;
+        }
+    },
+    actions: {
+        setNewPromptAction: (context: ActionContext<TPromptText, any>, payload: TPromptText) => {
+            if (payload?.text) {
+                context.commit("setNewPrompt", payload);
+            }
+        },
+        clearPromptAction: (context: ActionContext<TPromptText, any>) => {
+            context.commit("clearPrompt");
+        }
+    },
+    getters: {
+        getPromptText: (state: TPromptText) => {
+            return state?.text;
+        },
+        getTurnLen: (state: TPromptText) => {
+            return state?.turnLen;
+        }
+    }
+}
 const store = new Vuex.Store({
     modules: {
         userArea,
-        apiKeyArea
+        apiKeyArea,
+        longTextArea
     }
 })
 
