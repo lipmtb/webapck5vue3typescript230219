@@ -65,7 +65,7 @@ const useChatHook = () => {
                 userId: "assistant",
                 userName: "bot",
                 time: new Date().toLocaleTimeString(),
-                content: message?.replace(/^\n*.+：/, "")
+                content: message?.replace(/^\n*.+[：|:]/, "")
             })
             // 记录多轮对话
             store.dispatch("longTextArea/setNewPromptAction", {
