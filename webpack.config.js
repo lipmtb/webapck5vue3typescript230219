@@ -76,7 +76,7 @@ module.exports = {
                 }
             }]
         }, {
-            test: /\.(png|jpe?g|gif|webp)$/,
+            test: /\.(png|jpe?g|gif|webp)$/i,
             type: "asset/resource",
             parser: {
                 dataUrlCondition: {
@@ -84,11 +84,18 @@ module.exports = {
                 }
             },
             generator: {
-                filename: 'static/[name].[hash].[ext]'
+                filename: 'static/[hash][name].[ext]'
             }
         },
         {
-            test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+            test: /\.mp3/i,
+            type: "asset/resource",
+            generator: {
+                filename: 'static/[hash][name].[ext]'
+            }
+        },
+        {
+            test: /\.(woff(2)?|eot|ttf|otf|svg)$/i,
             type: 'asset/inline',
         },
         {

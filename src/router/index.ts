@@ -24,10 +24,25 @@ const routes = [
         }, {
             path: "circle",
             component: () => import("@/views/canvas/base/circle.vue")
-        },{
+        }, {
             path: "fire",
             component: () => import("@/views/canvas/makeFire/fire.vue")
         }]
+    }, {
+        path: "/cssTest",
+        component: () => import("@/views/cssTest/index.vue"),
+        redirect:"/cssTest/animation",
+        children: [{
+            path: "animation",
+            component: () => import("@/views/cssTest/cssTestAnimation.vue")
+        }]
+    }, {
+        path: "/audio",
+        component: () => import("@/views/audio/index.vue"),
+    },
+    {
+        path: "/helloAlgo",
+        component: () => import("@/views/helloAlgo/index.vue"),
     }
 ];
 

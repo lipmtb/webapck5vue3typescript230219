@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>s-2023-09-16</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="">
+        <audio src="./qilx.mp3" controls></audio>
+    </div>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            if (audioElement) {
+                audioElement.addEventListener('timeupdate', () => {
+                    console.log("audioElementaudioElementaudioElement", audioElement.currentTime);
+                });
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>
