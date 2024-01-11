@@ -20,6 +20,7 @@
         中后输出先序，并构建输出二叉树
       </button>
       <button @click="largetFirstTrace()">广度优先遍历</button>
+      <button @click="comparetTwoTree()">二叉树比较</button>
     </div>
     <div>
       <button @click="stringOnly()">字符串去重</button>
@@ -51,6 +52,7 @@ import {
   getFirstByMidAndAfterTree,
   getFirstByMidAndAfterBuildTree,
   getAfterByFirstMidTrace,
+  compareTwoTreeAndReturnBoolean,
 } from "./tree";
 import TreeShow from "./tree/treeShow";
 
@@ -154,7 +156,7 @@ export default defineComponent({
       // getFirstByMidAndAfterTree("FCGADBE", "FGCDEBA", result);
       // console.log(result.join(""));
       // 中后序还原二叉树
-      // const root = getFirstByMidAndAfterBuildTree("FCGADBE", "FGCDEBA", null);
+      // const root = getFirstByMidAndAfterBuildTree("FCGADBE", "FGCDEBA");
       // 前中序还原二叉树
       const root = getAfterByFirstMidTrace("ACFGBDE", "FCGADBE"); //  "FGCDEBA"
       afterLeftRightMidTrace(root, result);
@@ -255,6 +257,14 @@ export default defineComponent({
       const tree = getFirstByMidAndAfterTreeTest();
       largetTraceFirst01([tree]); // ACBFGDE
     };
+    const comparetTwoTree = () => {
+      const rootA = getAfterByFirstMidTrace("ACFGBDE", "FCGADBE"); //  "FGCDEBA"
+      const rootB = getAfterByFirstMidTrace("ACFGBDE", "FCGADBE"); //  "FGCDEBA"
+      const rootC = getAfterByFirstMidTrace("ACFBDE", "FCADBE"); 
+      const isSame=compareTwoTreeAndReturnBoolean(rootA,rootB);
+      const isSame2=compareTwoTreeAndReturnBoolean(rootA,rootC);
+      console.log("isSameisSameisSameisSame",isSame,isSame2);
+    };
     return {
       plainSortA,
       quickSort,
@@ -275,6 +285,7 @@ export default defineComponent({
       stringOnly,
       stringReverseWithGap,
       largetFirstTrace,
+      comparetTwoTree,
     };
   },
   method() {},
