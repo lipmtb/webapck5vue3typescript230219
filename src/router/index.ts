@@ -47,6 +47,10 @@ const routes = [
         path: "moveCircle",
         component: () => import("@/views/cssTest/moveCircle.vue"),
       },
+      {
+        path: "jumpCircle",
+        component: () => import("@/views/cssTest/jumpCircle.vue"),
+      },
     ],
   },
   {
