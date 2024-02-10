@@ -65,6 +65,10 @@ const routes = [
     path: "/algoDeep",
     component: () => import("@/views/algoDeep/index.vue"),
   },
+  {
+    path: "/downloadPage",
+    component: () => import("@/views/downloadPage/index.vue"),
+  },
 ];
 
 export default createRouter({
