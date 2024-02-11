@@ -1,5 +1,5 @@
-import axios from 'axios'
-export const ServerBaseUrl = "http://127.0.0.1:82";
+import axios from 'axios';
+export const ServerBaseUrl = "/jjcc";
 
 const serviceBaseAxios = axios.create({
     baseURL: ServerBaseUrl,
