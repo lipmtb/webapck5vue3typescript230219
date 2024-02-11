@@ -1,12 +1,17 @@
 <template>
-  <div class="downloadPage">
-    <input v-model="currentInputRef" />
-    <button @click="downloadFile">下载</button>
-  </div>
+  <PopupLayout>
+    <template v-slot:children>
+      <div class="downloadPage">
+        <input v-model="currentInputRef" />
+        <button @click="downloadFile">下载</button>
+      </div>
+    </template>
+  </PopupLayout>
 </template>
 
 <script lang="ts">
 import downloadLinuxFile from "@/service/download";
+import PopupLayout from "@/views/common/layout/PopupLayout.vue";
 import { defineComponent, onMounted, ref } from "vue";
 const checkDownloadPath = (path: string) => {
   const pathRegMatch = /^(\.|(\.\.))?(\/\w+)+(\.\w+)$/;
@@ -46,6 +51,9 @@ export default defineComponent({
     };
   },
   method() {},
+  components: {
+    PopupLayout,
+  },
 });
 </script>
 

@@ -17,9 +17,6 @@ export default defineComponent({
   setup(this) {
     const router = useRouter();
     const store = useStore();
-    const getRoutePage = (path: string) => {
-      router.push(path && path !== "/" ? path : "/chatLearn");
-    };
     onMounted(async () => {
       try {
         await testLogin();
@@ -36,7 +33,7 @@ export default defineComponent({
       } finally {
         initError();
         console.log("dsdadad", location.pathname);
-        getRoutePage(location.pathname);
+        router.push("/chatLearn");
       }
     });
   },

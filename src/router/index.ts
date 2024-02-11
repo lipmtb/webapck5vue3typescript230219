@@ -7,6 +7,12 @@ const routes = [
   {
     path: "/chatLearn",
     component: () => import("@/views/chatLearn/index.vue"),
+    children: [
+      {
+        path: "downloadPage",
+        component: () => import("@/views/downloadPage/index.vue"),
+      },
+    ],
   },
   {
     path: "/code",
@@ -64,10 +70,6 @@ const routes = [
   {
     path: "/algoDeep",
     component: () => import("@/views/algoDeep/index.vue"),
-  },
-  {
-    path: "/downloadPage",
-    component: () => import("@/views/downloadPage/index.vue"),
   },
 ];
 
