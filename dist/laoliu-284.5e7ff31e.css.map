@@ -1,0 +1,1 @@
+{"version":3,"file":"laoliu-284.5e7ff31e.css","mappings":"AACA;EACI;AAAJ","sources":["webpack://vue3webpack5-2022100601/./src/views/canvas/base/rect.vue"],"sourcesContent":["\n.rect-wrapper{\n    background-color: #ff0;\n}\n"],"names":[],"sourceRoot":""}

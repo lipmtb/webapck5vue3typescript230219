@@ -2,7 +2,6 @@
     <div class="chat-learn-layout">
         <PopupLayout>
             <template v-slot:children>
-                <button @click="toDownloadPage">toDownload</button>
                 <LoginHeaderVue :user-name="userObj?.userName" @loginOpen="loginOpen" />
                 <ChatMain :user-name="userObj?.userName" />
                 <Login :visible="loginVisible" :on-close="onCloseLogin" />
