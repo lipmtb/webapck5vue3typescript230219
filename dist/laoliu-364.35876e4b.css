@@ -1,0 +1,80 @@
+.modal-view-popup[data-v-3af3bdd6] {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.315);
+  z-index: 999;
+}
+.modal-view-popup .pop-up-content[data-v-3af3bdd6] {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  margin: auto;
+  background-color: #fff;
+  padding: 16px;
+}
+.modal-view-popup .pop-up-content .modal-header[data-v-3af3bdd6] {
+  text-align: right;
+  padding: 8px 16px;
+}
+.modal-view-popup .pop-up-content .modal-bottom[data-v-3af3bdd6] {
+  margin-top: 4px;
+  text-align: right;
+}
+
+.welcome-page[data-v-8c361692] {
+  height: 100vh;
+}
+.welcome-page div.center-nav[data-v-8c361692] {
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  margin: auto;
+}
+.welcome-page div.center-nav button.open-link[data-v-8c361692] {
+  margin: 8px 0;
+  height: 44px;
+  background-color: #3990f1;
+  border-radius: 4px;
+  outline: none;
+  border: 0;
+  color: #fff;
+}
+.confirm-form input[data-v-8c361692] {
+  display: block;
+  width: 80%;
+  outline: none;
+  border: 1px solid #ccc;
+  height: 34px;
+  margin: 8px auto;
+}
+.modal-bottom[data-v-8c361692] {
+  margin-top: 4px;
+  text-align: right;
+}
+.modal-bottom button[data-v-8c361692] {
+  padding: 4px 12px;
+  border: none;
+  background-color: #3990f1;
+  color: #fff;
+  border-radius: 4px;
+  margin: 0 8px;
+}
+
+
+/*# sourceMappingURL=laoliu-364.35876e4b.css.map*/
