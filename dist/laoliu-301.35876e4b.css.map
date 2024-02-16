@@ -1,1 +1,0 @@
-{"version":3,"file":"laoliu-301.35876e4b.css","mappings":"AACA;EACI;AAAJ","sources":["webpack://vue3webpack5-2022100601/./src/views/canvas/base/circle.vue"],"sourcesContent":["\n.circle-wrapper{\n    background-color: #f00;\n}\n"],"names":[],"sourceRoot":""}
