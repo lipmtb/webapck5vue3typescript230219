@@ -25,6 +25,7 @@
     <div>
       <button @click="stringOnly()">字符串去重</button>
       <button @click="stringReverseWithGap()">字符串括号反转</button>
+      <button @click="isReverseSameString()">回文串</button>
     </div>
 
     <div class="centerTree">
@@ -55,6 +56,7 @@ import {
   compareTwoTreeAndReturnBoolean,
 } from "./tree";
 import TreeShow from "./tree/treeShow";
+import { reverseSameTest } from "./util";
 
 export default defineComponent({
   setup(this) {
@@ -265,6 +267,10 @@ export default defineComponent({
       const isSame2=compareTwoTreeAndReturnBoolean(rootA,rootC);
       console.log("isSameisSameisSameisSame",isSame,isSame2);
     };
+    const isReverseSameString=()=>{
+     const res= reverseSameTest("123456,,76543210");
+     console.log("reverse is same",res);
+    }
     return {
       plainSortA,
       quickSort,
@@ -286,6 +292,7 @@ export default defineComponent({
       stringReverseWithGap,
       largetFirstTrace,
       comparetTwoTree,
+      isReverseSameString,
     };
   },
   method() {},
