@@ -15,6 +15,7 @@ export type TChatState = {
 const useChatHook = () => {
     const store = useStore();
     const socketRef = ref();
+
     const state = reactive<TChatState>({ loading: false, chatList: [] });
     const userId = computed(() => {
         return store.getters["userArea/getUserId"];
@@ -25,6 +26,7 @@ const useChatHook = () => {
     // 发送聊天
     const onSubmitChat = async (reqText: string, apiKey: string) => {
         state.loading = true;
+     
         state.chatList.push({
             userId: userId?.value,
             userName: userName?.value,
@@ -53,7 +55,7 @@ const useChatHook = () => {
         ...(state || {}),
         socketRef,
         onSubmitChat,
-        userId
+        userId,
     }
 }
 export default useChatHook;

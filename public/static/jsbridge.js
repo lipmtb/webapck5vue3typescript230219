@@ -21,7 +21,14 @@
         params.callbackId = callbackId;
       }
     }
-    console.log("window.utilWeb", window.utilWeb, Object.keys(window.utilWeb));
-    window.utilWeb.postNative(commandName, JSON.stringify(params || {}));
+
+    try {
+      if (!window.utilWeb || !window.utilWeb.postNative) {
+        throw new Error("请检查是否真机环境，相关jsinterface未成功加载");
+      }
+      window.utilWeb.postNative(commandName, JSON.stringify(params || {}));
+    } catch (error) {
+      console.log(error?.message || "");
+    }
   };
 })();

@@ -4,4 +4,6 @@ import store from "./store"
 import "./style/main.less";
 
 import App from './App.vue';
-createApp(App).use(router).use(store).mount("#root");
+import appVconsole from './vconsole';
+
+createApp(App).use(router).use(store).use(appVconsole).mount("#root");

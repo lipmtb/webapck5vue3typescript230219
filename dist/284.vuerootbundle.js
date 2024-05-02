@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkvue3webpack5_2022100601=self.webpackChunkvue3webpack5_2022100601||[]).push([[284],{2731:function(e,c,r){var t=r(4783)(e.id,{locals:!1});e.hot.dispose(t),e.hot.accept(void 0,t)},6284:function(e,c,r){r.r(c),r.d(c,{default:function(){return u}});var t=r(6252);const a={class:"rect-wrapper"};var n=(0,t.aZ)({setup(e,c){}});r(2731);var u=(0,r(3744).Z)(n,[["render",function(e,c,r,n,u,s){return(0,t.wg)(),(0,t.iD)("div",a," rect ")}]])}}]);
-//# sourceMappingURL=284.vuerootbundle.js.map
