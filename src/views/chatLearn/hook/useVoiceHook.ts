@@ -1,6 +1,7 @@
 import { base64ToBlob } from "@/util/base64ToBlob";
 import { reactive, ref } from "vue";
 import voiceMock from "../../../mock/music.json";
+import { useSpeechToTextHook } from "./useSpeechToTextHook";
 
 declare global {
   interface IUtilWeb {
@@ -25,7 +26,13 @@ type TVoiceItem = {
 const useVoiceHook = () => {
   const voiceList = ref<TVoiceItem[]>([]);
   const isVoicing = ref<boolean>(false);
-  const tempRecordBase64 = ref<string>("");
+  const { getTextFromSpeech } = useSpeechToTextHook();
+
+  const speechToText = async (voiceBlob: Blob, dataUrl: string) => {
+    const speechResultText = await getTextFromSpeech(voiceBlob);
+    console.log("speechResultTextspeechResultText", speechResultText);
+    return speechResultText;
+  };
 
   // 原生的录音
   const startVoice = () => {
@@ -55,45 +62,52 @@ const useVoiceHook = () => {
       window.origin.includes("localhost") ||
       window.origin.includes("127.0.0.1")
     ) {
-      const audioBlob = base64ToBlob(voiceMock, "audio/mpeg");
-      voiceList.value = [
-        {
-          time: new Date().toLocaleTimeString(),
-          voiceUrl: `data:audio/mpeg;base64,${voiceMock}`,
-          originFile: audioBlob,
-        },
-      ];
-      return;
+      // const audioBlob = base64ToBlob(voiceMock, "audio/mpeg");
+      const audioBlob = base64ToBlob(voiceMock, "audio/aac");
+      // voiceList.value = [
+      //   {
+      //     time: new Date().toLocaleTimeString(),
+      //     voiceUrl: `data:audio/mpeg;base64,${voiceMock}`,
+      //     originFile: audioBlob,
+      //   },
+      // ];
+      const textResult = await speechToText(
+        audioBlob,
+        `data:audio/mpeg;base64,${voiceMock}`
+      );
+      return textResult;
     }
-    if (
-      window.postWithCallback &&
-      typeof window.utilWeb?.postNative === "function"
-    ) {
+
+    const realResult: string = await new Promise((resolve, reject) => {
+      if (
+        !window.postWithCallback ||
+        typeof window.utilWeb?.postNative !== "function"
+      ) {
+        return reject("录音失败");
+      }
       window.postWithCallback(
         "recordVoice",
         { type: "end" },
         async (response) => {
-          console.log("结束录音response");
-          if (typeof response === "object") {
-            console.log("获取到录音数据", response);
-
-            if (!response || !response.audioBase64) {
-              console.log("录音异常");
-            }
-            console.log("录音成功", response.audioBase64);
+          console.log("结束录音response", response);
+          if (typeof response !== "object") {
+            return reject("录音失败");
+          }
+          if (!response || !response.audioBase64) {
+            return reject("录音失败");
+          }
+          try {
             const audioUrl = "data:audio/aac;base64," + response.audioBase64;
             const audioBlob = base64ToBlob(response.audioBase64, "audio/aac");
-            voiceList.value = [
-              {
-                time: new Date().toLocaleTimeString(),
-                voiceUrl: audioUrl,
-                originFile: audioBlob,
-              },
-            ];
+            const textResult = await speechToText(audioBlob, audioUrl);
+            resolve(textResult ?? "");
+          } catch (error) {
+            reject("录音失败" + (error as Error)?.message || error);
           }
         }
       );
-    }
+    });
+    return realResult;
   };
 
   const removeVoice = () => {

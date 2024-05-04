@@ -34,7 +34,7 @@
         <div
           class="voiceBtn"
           @touchstart.prevent="startVoice"
-          @touchend.prevent="endVoice"
+          @touchend.prevent="onEndVoice"
         >
           <template v-if="isVoicing">
             <VoicingRuning />
@@ -158,6 +158,11 @@ export default defineComponent({
     // 录音
     const { startVoice, endVoice, voiceList, isVoicing } = useVoiceHook();
 
+    const onEndVoice = async () => {
+      const result = await endVoice();
+      userInText.value = result;
+    };
+
     return {
       userName,
       userInText,
@@ -176,7 +181,7 @@ export default defineComponent({
       scrollLine,
       firstEle,
       startVoice,
-      endVoice,
+      onEndVoice,
       voiceList,
       isVoicing,
     };
